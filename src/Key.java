@@ -1,6 +1,12 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.List;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Key {
 
@@ -24,16 +30,18 @@ public class Key {
 		frame.getContentPane().add(panel2, BorderLayout.SOUTH);
 		
 			
-		/*class SingleKey {
-			String letter = null;
-			SingleKey(){
-				
-			}
+		class SingleKey extends JButton {
 			
-			void setLetter(String letter) {
-				this.letter = letter;
+			String keyName = null;
+					
+			public SingleKey(String key) {
+				super(key);
 			}
-		}*/
+
+			void setKeyName(String letter) {
+				keyName = letter;
+			}
+		}
 		
 	
 		String keyBoard[][]= {
@@ -42,9 +50,27 @@ public class Key {
 				{"Z","X","C","V","B","N","M"}
 				};
 		
+
+		
 		int x[] = {0,1,2};
+		ArrayList<ArrayList<SingleKey>> keyLayout = new ArrayList<ArrayList<SingleKey>>();
+		
+		for (int rowNum:x) {
+			int count = 0;
+			ArrayList<SingleKey> k1 = new ArrayList<SingleKey>();
+			for (String key:keyBoard[rowNum]) {
+				k1.add(count, new SingleKey(key));
+				k1.get(count).setKeyName(key);
+				constraints0.gridx = count;
+				constraints0.gridy = rowNum;
+				panel0.add(k1.get(count),constraints0);
+				count++;
+			}
+			keyLayout.add(k1);
+		}
+			
 				
-		for (int rowNum: x){
+		/*for (int rowNum: x){
 			int counter0 = 0;
 			for(String key: keyBoard[rowNum]){
 				JButton name = new JButton(key);
@@ -52,7 +78,7 @@ public class Key {
 				constraints0.gridy = rowNum;
 				panel0.add(name,constraints0);
 				counter0++;								
-			}	
+			}	*/
 		}
 	}
-}
+
